@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Rendering;
 
-public class Enemy : MonoBehaviour
+public class Enemy : GameBehaviour
 {
     [SerializeField] EnemyType MyType;
     [SerializeField] float moveDistance = 1000f;
@@ -22,16 +22,18 @@ public class Enemy : MonoBehaviour
     [SerializeField] float myspeed = 5.0f;
     [SerializeField] int myHelth = 100;
 
-    
 
-
-    private EnemyMannager _EM;
-
-
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.H)) 
+        {
+            EnemyHit(-10);
+        }
+    }
 
     public void setup(Transform _startPo)
     {
-        _EM = FindFirstObjectByType<EnemyMannager>();
+        
 
         switch (MyType)
         {
@@ -58,7 +60,7 @@ public class Enemy : MonoBehaviour
         {
             endPos = _EM.GetRandomSpawnPos();
         }
-        
+
         moveToPos = endPos;
 
         StartCoroutine(MoveEnemy());
@@ -72,21 +74,21 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator MoveEnemy()
     {
-        switch ( myPatrol)
+        switch (myPatrol)
         {
             case PotrolType.Linear:
                 moveToPos = _EM.GetSpawnPoint(PatrolPoint);
                 PatrolPoint = PatrolPoint != _EM.GetSpawnPointsCount() ? PatrolPoint + 1 : 0;
-                    break;
-                
+                break;
+
             case PotrolType.Loop:
                 moveToPos = reverse ? startPos : endPos;
                 reverse = !reverse;
-                    break;
+                break;
 
             case PotrolType.Random:
                 moveToPos = _EM.GetRandomSpawnPos();
-                    break;
+                break;
         }
         transform.LookAt(moveToPos);
 
@@ -98,20 +100,31 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForSeconds(1);
         StartCoroutine(MoveEnemy());
-
-
     }
 
-    //private IEnumerator MoveEnemy()
-    //{
-    //    for (int i = 0; i < moveDistance; i++)
-    //    {
-    //        transform.Translate(Vector3.forward * Time.deltaTime * myspeed);
-    //        yield return null;
-    //    }
-    //    transform.Rotate(Vector3.up * 180);
-    //    yield return new WaitForSeconds(Random.Range(0, 3));
-    //    StartCoroutine( MoveEnemy());
+    public void EnemyHit(int _damage)
+    {
+        myHelth -= _damage;
+        print($"health = {myHelth}");
 
-    //}
+        if (myHelth <= 0)
+        {
+            EnemyDie();
+        }
+        else
+        {
+            GameEvents.reportOnEnemyHit(gameObject);
+        }
+        
+    }
+
+    private void EnemyDie()
+    {
+        if (myHelth <= 0)
+        {
+            StopAllCoroutines();
+            print("Enermy Dies");
+            GameEvents.reportOnEnemyDie(gameObject);
+        }
+    }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : GameBehaviour
 {
     private CharacterController characterController;
     public float speed = 10f;
@@ -36,10 +36,20 @@ public class PlayerController : MonoBehaviour
         characterController.Move(move * speed * Time.deltaTime);
 
         //Do the jump stuff
-        if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
 
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            GetCloestObject();
+        }
+    }
+
+    private void GetCloestObject()
+    {
+        print ($"Closest Enemy is { getClosestEnermy(transform, _EM.spawnnedEnemies)}");
     }
 }

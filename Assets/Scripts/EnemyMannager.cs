@@ -17,7 +17,7 @@ public enum PotrolType
     Loop,
 }
 
-public class EnemyMannager : MonoBehaviour
+public class EnemyMannager : Singleton<EnemyMannager>
 {
     public GameObject[] enemyPrefab;
     public Transform[] spawnPoints;
@@ -28,6 +28,7 @@ public class EnemyMannager : MonoBehaviour
     [SerializeField] static int spawnAmout = 6;
 
     public string killsCondition = "archer";
+
 
 
     #region Start
@@ -120,7 +121,7 @@ public class EnemyMannager : MonoBehaviour
     /// kills an inputed Enemy
     /// </summary>
     /// <param name="_enemy"></param>
-    private void KillEnemy(GameObject _enemy)
+    public void KillEnemy(GameObject _enemy)
     {
         if (GetEnemyCount() == 0)
             return;
@@ -161,7 +162,7 @@ public class EnemyMannager : MonoBehaviour
     /// kills all enemies in the spawnned Enemies list
     /// </summary>
 
-    private void KillAllEnemies()
+    public void KillAllEnemies()
     {
         if (GetEnemyCount() == 0)
             return;
@@ -194,6 +195,21 @@ public class EnemyMannager : MonoBehaviour
     /// gets the total Number of our spawn Points
     /// </summary>
     public int GetSpawnPointsCount() =>  spawnPoints.Length;
-    
 
+    private void GameEvents_OnEnermyDie(GameObject obj)
+    {
+        KillEnemy(obj);
+    }
+
+    private void OnEnable()
+    {
+        GameEvents.OnEnermyDie += GameEvents_OnEnermyDie;
+    }
+
+   
+
+    private void OnDisable()
+    {
+        GameEvents.OnEnermyDie -= GameEvents_OnEnermyDie;
+    }
 }

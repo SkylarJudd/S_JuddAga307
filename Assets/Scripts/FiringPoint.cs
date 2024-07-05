@@ -49,7 +49,11 @@ public class FiringPoint : MonoBehaviour
 
             if (hit.collider.CompareTag("Enemy"))
             {
-                Destroy(hit.collider.gameObject);
+
+                if (hit.collider.gameObject.GetComponent<Enemy>() != null)
+                {
+                    hit.collider.gameObject.GetComponent<Enemy>().EnemyHit(50);
+                }
             }
         }
     }

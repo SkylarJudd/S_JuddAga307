@@ -118,6 +118,16 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!120 &38551069 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 7582728831163063878, guid: 1c236994a7a8f4d4f95359f2f5c05744, type: 3}
+  m_PrefabInstance: {fileID: 1238392602}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &38551070 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7530333486480976962, guid: 1c236994a7a8f4d4f95359f2f5c05744, type: 3}
+  m_PrefabInstance: {fileID: 1238392602}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &86151194 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6529534201493743627, guid: cd32442e201a7a145a8f67aa484acd4d, type: 3}
@@ -157,6 +167,10 @@ PrefabInstance:
     - target: {fileID: 185486, guid: 3a367ca1b4f5a1a47bda6e98e7ba1f43, type: 3}
       propertyPath: m_Name
       value: Skeleton_F
+      objectReference: {fileID: 0}
+    - target: {fileID: 185486, guid: 3a367ca1b4f5a1a47bda6e98e7ba1f43, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 403846, guid: 3a367ca1b4f5a1a47bda6e98e7ba1f43, type: 3}
       propertyPath: m_LocalPosition.x
@@ -487,6 +501,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 38551070}
   - {fileID: 490493011}
   m_Father: {fileID: 1919256825}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -715,8 +730,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 4771011118064378264, guid: d5a339be31649b643a20c1f600720768, type: 3}
   projectileSpeed: 1000
-  laserHitSparks: {fileID: 0}
-  laser: {fileID: 0}
+  laserHitSparks: {fileID: 8652319566727268765, guid: 5b66f1485b200924d9bb87052fd6c380, type: 3}
+  laser: {fileID: 38551069}
 --- !u!1 &494049195 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9068011777282120823, guid: cd32442e201a7a145a8f67aa484acd4d, type: 3}
@@ -885,7 +900,7 @@ MonoBehaviour:
   - {fileID: 971229376}
   - {fileID: 824465296}
   spawnnedEnemies: []
-  kilssCondition: archer
+  killsCondition: archer
 --- !u!4 &784278366
 Transform:
   m_ObjectHideFlags: 0
@@ -1031,6 +1046,10 @@ PrefabInstance:
     - target: {fileID: 146754, guid: a27aaa9514020fa44bb6081abd5f14fc, type: 3}
       propertyPath: m_Name
       value: Skeleton_A
+      objectReference: {fileID: 0}
+    - target: {fileID: 146754, guid: a27aaa9514020fa44bb6081abd5f14fc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 405068, guid: a27aaa9514020fa44bb6081abd5f14fc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1477,6 +1496,63 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1001 &1238392602
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 330585546}
+    m_Modifications:
+    - target: {fileID: 7530333486480976962, guid: 1c236994a7a8f4d4f95359f2f5c05744, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 7530333486480976962, guid: 1c236994a7a8f4d4f95359f2f5c05744, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 7530333486480976962, guid: 1c236994a7a8f4d4f95359f2f5c05744, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 13.093854
+      objectReference: {fileID: 0}
+    - target: {fileID: 7530333486480976962, guid: 1c236994a7a8f4d4f95359f2f5c05744, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7530333486480976962, guid: 1c236994a7a8f4d4f95359f2f5c05744, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7530333486480976962, guid: 1c236994a7a8f4d4f95359f2f5c05744, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7530333486480976962, guid: 1c236994a7a8f4d4f95359f2f5c05744, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7530333486480976962, guid: 1c236994a7a8f4d4f95359f2f5c05744, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7530333486480976962, guid: 1c236994a7a8f4d4f95359f2f5c05744, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7530333486480976962, guid: 1c236994a7a8f4d4f95359f2f5c05744, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535854526523041748, guid: 1c236994a7a8f4d4f95359f2f5c05744, type: 3}
+      propertyPath: m_Name
+      value: Laser
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1c236994a7a8f4d4f95359f2f5c05744, type: 3}
 --- !u!1001 &1283439179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1488,6 +1564,10 @@ PrefabInstance:
     - target: {fileID: 188982, guid: d86c716d338a1a04d89b6ee52d44933c, type: 3}
       propertyPath: m_Name
       value: Skeleton_C
+      objectReference: {fileID: 0}
+    - target: {fileID: 188982, guid: d86c716d338a1a04d89b6ee52d44933c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 449256, guid: d86c716d338a1a04d89b6ee52d44933c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1853,6 +1933,10 @@ PrefabInstance:
     - target: {fileID: 108450, guid: cf1f48d2327ff8640a3ed8e9673685ac, type: 3}
       propertyPath: m_Name
       value: Skeleton_archer_B (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 108450, guid: cf1f48d2327ff8640a3ed8e9673685ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 402856, guid: cf1f48d2327ff8640a3ed8e9673685ac, type: 3}
       propertyPath: m_LocalPosition.x

@@ -12,6 +12,9 @@ public class TriggerEvents : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (triggerTag == "")
+            Debug.LogWarning($"No Tag attached");
+
         if(other.CompareTag(triggerTag))
         {
             triggerEnterEvent?.Invoke();
@@ -20,6 +23,9 @@ public class TriggerEvents : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if (triggerTag == "")
+            Debug.LogWarning($"No Tag attached");
+
         if (other.CompareTag(triggerTag))
         {
             triggerStayEvent?.Invoke();
@@ -28,6 +34,9 @@ public class TriggerEvents : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if (triggerTag == "")
+            Debug.LogWarning($"No Tag attached");
+
         if (other.CompareTag(triggerTag))
         {
             triggerExitEvent?.Invoke();

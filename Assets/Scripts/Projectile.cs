@@ -2,13 +2,22 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public GameObject hitParticles;
-    public float lifetime = 3f;
+    [SerializeField] GameObject hitParticles;
+    [SerializeField] float lifetime = 30f;
+    [SerializeField] int damage = 10;
+    [SerializeField] int speed = 10;
 
-    public int damage = 10;
+
+    Rigidbody _bulletRigidBody;
+
+    private void Awake()
+    {
+        _bulletRigidBody = GetComponent<Rigidbody>();
+    }
     void Start()
     {
         Invoke("DestroyProjectile", lifetime);
+        _bulletRigidBody.linearVelocity = transform.forward * speed; 
     }
 
     public void DestroyProjectile()
@@ -21,13 +30,22 @@ public class Projectile : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //print(collision.gameObject.name);
-        if(collision.collider.CompareTag("Enemy"))
+        if (collision.collider.CompareTag("Enemy"))
         {
- 
-            if(collision.gameObject.GetComponent<Enemy>() != null)
+
+            if (collision.gameObject.GetComponent<Enemy>() != null)
             {
                 collision.gameObject.GetComponent<Enemy>().EnemyHit(damage);
             }
+        }
+        ChickenEnermy chickenEnermy = collision.gameObject.GetComponent<ChickenEnermy>();
+        if (chickenEnermy != null)
+        {
+            chickenEnermy.ChickenHit(damage);
+        }
+        else
+        {
+            print("NotChickenHit");
         }
         DestroyProjectile();
         

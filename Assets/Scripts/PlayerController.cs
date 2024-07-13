@@ -17,6 +17,7 @@ public class PlayerController : GameBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+
     }
 
     void Update()

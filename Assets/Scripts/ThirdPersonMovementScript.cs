@@ -15,7 +15,7 @@ public class ThirdPersonMovementScript : MonoBehaviour
 
     [Header("PlayerMove")]
     [SerializeField] float walkSpeed = 6f;
-
+    [SerializeField] float sensitivity = 1f;
     Vector2 _input;
     Vector3 _direction;
     float _speed = 0;
@@ -26,6 +26,7 @@ public class ThirdPersonMovementScript : MonoBehaviour
     [SerializeField] Transform cam;
 
     float _turnSmoothVelocity;
+    private bool _rotateOnMove;
 
     [Header("PlayerJump")]
     [SerializeField] float gravity = -9.81f;
@@ -62,15 +63,13 @@ public class ThirdPersonMovementScript : MonoBehaviour
     {
         _input = _context.ReadValue<Vector2>();
         _direction = new Vector3(_input.x, 0, _input.y).normalized;
+
     }
     public void Jump(InputAction.CallbackContext _context)
     {
         if (_context.ReadValue<float>() == 1 && _isGrounded)
         {
-            _velocity.y = Mathf.Sqrt(jumpHight * -2f * gravity);
-            moveState = MoveState.Jump;
-            _jumpped = true;
-            turnSmoothTime = 0.3f;
+            JumpAction(jumpHight);
         }
         else if (_context.ReadValue<float>() == 1 && !_doubleJumpUsed)
         {
@@ -78,9 +77,17 @@ public class ThirdPersonMovementScript : MonoBehaviour
             _doubleJumpUsed = true;
         }
     }
+
+    public void JumpAction(float _jumpHight)
+    {
+        _velocity.y = Mathf.Sqrt(_jumpHight * -2f * gravity);
+        moveState = MoveState.Jump;
+        _jumpped = true;
+        turnSmoothTime = 0.3f;
+    }
     public void Crouch(InputAction.CallbackContext _context)
     {
-        print(_context.ReadValue<float>());
+        //print(_context.ReadValue<float>());
         if (_context.ReadValue<float>() == 1 && _isGrounded)
         {
             moveState = MoveState.Crouch;
@@ -97,7 +104,7 @@ public class ThirdPersonMovementScript : MonoBehaviour
     }
     public void Sprint(InputAction.CallbackContext _context)
     {
-        print(_context.ReadValue<float>());
+        //print(_context.ReadValue<float>());
         if (_context.ReadValue<float>() == 1 && _isGrounded)
         {
             moveState = MoveState.Sprint;
@@ -121,7 +128,11 @@ public class ThirdPersonMovementScript : MonoBehaviour
         {
             float targetAngle = Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0, angle, 0);
+
+            if (_rotateOnMove)
+            {
+                transform.rotation = Quaternion.Euler(0, angle, 0);
+            }
 
             Vector3 moveDir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
             controller.Move(moveDir.normalized * _speed * Time.deltaTime);
@@ -187,12 +198,21 @@ public class ThirdPersonMovementScript : MonoBehaviour
         _speed = Mathf.Lerp(_speed, _S, speedLerp * Time.deltaTime);
     }
 
-     private void groundPound()
+    private void groundPound()
     {
         if (groundPoundUsed)
         {
             groundPoundUsed = false;
             print("GroundPound");
         }
+    }
+    public void setSensitivity(float newSensitivity)
+    {
+        sensitivity = newSensitivity;
+    }
+
+    public void SetRotationOnMove(bool newRotationOnMove)
+    {
+        _rotateOnMove = newRotationOnMove;
     }
 }

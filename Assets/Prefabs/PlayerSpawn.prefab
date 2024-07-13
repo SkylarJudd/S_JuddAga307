@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 2469250743795773513}
   - component: {fileID: 2461337596037643878}
   - component: {fileID: 4229571439858162039}
-  - component: {fileID: 6469182848312206038}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -120,29 +119,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6469182848312206038
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8145545671723108961}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &7215670511952454260
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -195,7 +171,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TransformDebugIcon
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6363703312319267464, guid: 5482a29ca7dea614b8d6e431bb5df231, type: 3}
+    - {fileID: 5914321164459399330, guid: 5482a29ca7dea614b8d6e431bb5df231, type: 3}
+    - {fileID: 6655226048728776183, guid: 5482a29ca7dea614b8d6e431bb5df231, type: 3}
+    - {fileID: 1969144677950285768, guid: 5482a29ca7dea614b8d6e431bb5df231, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

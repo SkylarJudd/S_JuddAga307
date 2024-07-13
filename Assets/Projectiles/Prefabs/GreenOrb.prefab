@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2827852463465207940}
   - component: {fileID: 2732790921985602298}
   - component: {fileID: 2732030863431064088}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BallAB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4941,7 +4941,7 @@ GameObject:
   - component: {fileID: 2819738256590472080}
   - component: {fileID: 2733590986734166390}
   - component: {fileID: 2732288369023518248}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BeamAB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9871,7 +9871,7 @@ GameObject:
   - component: {fileID: 2827877019624965386}
   - component: {fileID: 2707196654294478900}
   - component: {fileID: 2732990452194393664}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14801,7 +14801,7 @@ GameObject:
   - component: {fileID: 2828125616954506632}
   - component: {fileID: 2707203111681317128}
   - component: {fileID: 2732545079865305692}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19668,7 +19668,7 @@ GameObject:
   - component: {fileID: 2819751895430671666}
   - component: {fileID: 2732788083614314166}
   - component: {fileID: 2732523273893001268}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CircleOutterAdd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24598,7 +24598,7 @@ GameObject:
   - component: {fileID: 2827960642931055190}
   - component: {fileID: 2733150462484971978}
   - component: {fileID: 2731450949578864332}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CircleOutterAB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29529,7 +29529,7 @@ GameObject:
   - component: {fileID: 7348799559795796518}
   - component: {fileID: 2877265681029843580}
   - component: {fileID: 4359307203776525495}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GreenOrb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29571,6 +29571,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitParticles: {fileID: 2573745096668285417, guid: 6566a3f2b54cd6f45bb4c157bf7d3858, type: 3}
+  lifetime: 10
+  damage: 10
+  speed: 10
 --- !u!54 &2877265681029843580
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -29630,7 +29633,7 @@ GameObject:
   - component: {fileID: 2828067701946729190}
   - component: {fileID: 2733376923933219356}
   - component: {fileID: 2732503086142255366}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ParticlesWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

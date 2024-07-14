@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visials: {fileID: 0}
   chickenEnemyName: MR_Scramble!
-  chickenEnemySpeed: 5
-  chickenEnemyRotateSpeed: 5
+  chickenEnemySpeed: 1.5
+  chickenEnemyRotateSpeed: 10

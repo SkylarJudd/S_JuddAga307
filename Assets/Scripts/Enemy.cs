@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.Rendering;
 
 public class Enemy : GameBehaviour
 {
@@ -113,7 +112,7 @@ public class Enemy : GameBehaviour
         }
         else
         {
-            GameEvents.reportOnEnemyHit(gameObject);
+            GameEvents.ReportOnEnemyHit(gameObject);
         }
         
     }
@@ -124,7 +123,7 @@ public class Enemy : GameBehaviour
         {
             StopAllCoroutines();
             print("Enermy Dies");
-            GameEvents.reportOnEnemyDie(gameObject);
+            GameEvents.ReportOnEnemyDie(gameObject);
         }
     }
 }

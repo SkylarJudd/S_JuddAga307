@@ -2,11 +2,30 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Cinemachine;
 using System.Collections;
-using Unity.VisualScripting;
 using System;
 
+public enum Wepon
+{
+    FireBall, GreenOrb, RedOrb,
+}
 
-public class FireLazer : MonoBehaviour
+[Serializable]
+public class GunData
+{
+    public GameObject projectilePrefab;
+    public Transform[] shootTranforms;
+    public Wepon wepon;
+    public float shootCoolDown = 0.5f;
+    public float projectileSpeed = 1000f;
+    public int maxAmmo = 10;
+    public int currentAmmo;
+    public float reloadTime;
+    public int damage;
+    public int projectileLifeTime;
+
+}
+
+public class FireLazer : GameBehaviour
 {
     [SerializeField] GameObject player;
     [SerializeField] ThirdPersonMovementScript thirdPersonMovementScript;
@@ -44,22 +63,8 @@ public class FireLazer : MonoBehaviour
     private int ActiveGun;
 
 
-    [Serializable]
-   private class GunData
-    {
-        public GameObject projectilePrefab;
-        public Transform[] shootTranforms;
-        public float shootCoolDown = 0.5f;
-        public float projectileSpeed = 1000f;
-
-    }
 
 
-
-    private void Awake()
-    {
-
-    }
 
     private void Start()
     {
@@ -69,28 +74,60 @@ public class FireLazer : MonoBehaviour
 
         camX = defultVirtualCameraOrbital.HorizontalAxis.Value;
         camY = defultVirtualCameraOrbital.VerticalAxis.Value;
+
+        foreach(GunData _guns in Guns)
+        {
+            _guns.currentAmmo = _guns.maxAmmo;
+        }
     }
 
-    private void LateUpdate()
-    {
-
-    }
 
     public void shoot(InputAction.CallbackContext _context)
     {
+        if (_GM.gameState != GameState.Playing)
+            return;
+
         if (_context.ReadValue<float>() == 1 && currentShootCoolDown <= 0)
         {
-            Transform spawnBulletPos = Guns[ActiveGun].shootTranforms[UnityEngine.Random.Range(0, Guns[ActiveGun].shootTranforms.Length)];
-            Vector3 aimDir = (mouseWorldPosition - spawnBulletPos.position).normalized;
+            if (Guns[ActiveGun].currentAmmo == 0)
+            {
+                StartCoroutine(reload(Guns[ActiveGun].reloadTime, ActiveGun));
+            }
+            else
+            {
+                Guns[ActiveGun].currentAmmo--;
+                _UIM.updateAmmo(Guns[ActiveGun].currentAmmo, Guns[ActiveGun].maxAmmo);
+                Transform spawnBulletPos = Guns[ActiveGun].shootTranforms[UnityEngine.Random.Range(0, Guns[ActiveGun].shootTranforms.Length)];
+                Vector3 aimDir = (mouseWorldPosition - spawnBulletPos.position).normalized;
 
-            Instantiate(Guns[ActiveGun].projectilePrefab, spawnBulletPos.position, Quaternion.LookRotation(aimDir, Vector3.up));
-            currentShootCoolDown = Guns[ActiveGun].shootCoolDown;
+                GameObject projectile = Instantiate(Guns[ActiveGun].projectilePrefab, spawnBulletPos.position, Quaternion.LookRotation(aimDir, Vector3.up));
+                Projectile projectileScript = projectile.GetComponent<Projectile>();
+
+                projectileScript.setup(Guns[ActiveGun]);
+
+                currentShootCoolDown = Guns[ActiveGun].shootCoolDown;
+            }
         }
+    }
+
+    private IEnumerator reload(float reloadtime, int index)
+    {
+        yield return new WaitForSeconds(reloadtime);
+        Guns[index].currentAmmo = Guns[index].maxAmmo;
+
+        if (index == ActiveGun)
+        {
+            _UIM.updateAmmo(Guns[ActiveGun].currentAmmo, Guns[ActiveGun].maxAmmo);
+        }
+       
     }
 
     public void ChangeWepons(InputAction.CallbackContext _context)
     {
-        print("MouseScroll" + _context.ReadValue<float>());
+        if (_GM.gameState != GameState.Playing)
+            return;
+
+        //print("MouseScroll" + _context.ReadValue<float>());
         if (_context.ReadValue<float>() < 0)
         {
             ActiveGun++;
@@ -98,6 +135,7 @@ public class FireLazer : MonoBehaviour
             {
                 ActiveGun = 0;
             }
+
         }
         else if (_context.ReadValue<float>() > 0)
         {
@@ -107,10 +145,15 @@ public class FireLazer : MonoBehaviour
                 ActiveGun = Guns.Length - 1;
             }
         }
+        _UIM.updateAmmo(Guns[ActiveGun].currentAmmo, Guns[ActiveGun].maxAmmo);
+        _UIM.UpdateWepon(Guns[ActiveGun].wepon);
     }
 
     public void setWeponOne(InputAction.CallbackContext _context)
     {
+        if (_GM.gameState != GameState.Playing)
+            return;
+
         if (_context.ReadValue<float>() == 1)
         {
             ActiveGun = 0;
@@ -118,6 +161,9 @@ public class FireLazer : MonoBehaviour
     }
     public void setWeponTwo(InputAction.CallbackContext _context)
     {
+        if (_GM.gameState != GameState.Playing)
+            return;
+
         if (_context.ReadValue<float>() == 1)
         {
             ActiveGun = 1;
@@ -125,6 +171,9 @@ public class FireLazer : MonoBehaviour
     }
     public void setWeponThree(InputAction.CallbackContext _context)
     {
+        if (_GM.gameState != GameState.Playing)
+            return;
+
         if (_context.ReadValue<float>() == 1)
         {
             ActiveGun = 2;
@@ -133,6 +182,9 @@ public class FireLazer : MonoBehaviour
 
     public void PlayerLook(InputAction.CallbackContext _context)
     {
+        if (_GM.gameState != GameState.Playing)
+            return;
+
         Vector2 value = _context.ReadValue<Vector2>();
 
         camX += value.x * sensitivity * 0.1f;
@@ -175,6 +227,9 @@ public class FireLazer : MonoBehaviour
 
     public void AimZoom(InputAction.CallbackContext _context)
     {
+        if (_GM.gameState != GameState.Playing)
+            return;
+
         if (_context.ReadValue<float>() == 1)
         {
             aimVirtualCameraOrbital.HorizontalAxis.Value = defultVirtualCameraOrbital.HorizontalAxis.Value;

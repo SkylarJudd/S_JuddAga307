@@ -3,9 +3,10 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] GameObject hitParticles;
+
     [SerializeField] float lifetime = 30f;
     [SerializeField] int damage = 10;
-    [SerializeField] int speed = 10;
+    [SerializeField] float speed = 10;
 
 
     Rigidbody _bulletRigidBody;
@@ -17,7 +18,7 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         Invoke("DestroyProjectile", lifetime);
-        _bulletRigidBody.linearVelocity = transform.forward * speed; 
+        _bulletRigidBody.linearVelocity = transform.forward * speed;
     }
 
     public void DestroyProjectile()
@@ -48,7 +49,14 @@ public class Projectile : MonoBehaviour
             print("NotChickenHit");
         }
         DestroyProjectile();
-        
+
+    }
+
+    public void setup(GunData _gunData)
+    {
+        damage = _gunData.damage;
+        speed = _gunData.projectileSpeed;
+        lifetime = _gunData.projectileLifeTime;
     }
 
 }

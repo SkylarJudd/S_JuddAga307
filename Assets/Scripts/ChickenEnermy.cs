@@ -10,7 +10,7 @@ public class ChickenEnermy : MonoBehaviour
 
     public ChickenEnemySO chickenEnemySO;
 
-    public void setup(Transform _startPos)
+    public void setup()
     {
         myHealthSlider.maxValue = myHealth;
     }
@@ -27,17 +27,17 @@ public class ChickenEnermy : MonoBehaviour
         }
         else
         {
-            GameEvents.reportOnEnemyHit(gameObject);
+            GameEvents.ReportOnChickenEnemyHit(gameObject);
         }
     }
 
-    private void EnemyDie()
+    public void EnemyDie()
     {
-        if (myHealth <= 0)
-        {
+        
             StopAllCoroutines();
             print("Enermy Dies");
-            GameEvents.reportOnEnemyDie(gameObject);
-        }
+            GameEvents.ReportOnChickenEnemyDie(gameObject);
+        
     }
+
 }

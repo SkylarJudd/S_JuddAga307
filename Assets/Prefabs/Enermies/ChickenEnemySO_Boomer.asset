@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visials: {fileID: 0}
   chickenEnemyName: MR_Boomer!
-  chickenEnemySpeed: 20
+  chickenEnemySpeed: 5
   chickenEnemyRotateSpeed: 10

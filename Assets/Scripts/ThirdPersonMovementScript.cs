@@ -1,4 +1,4 @@
-using Unity.Mathematics;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,7 +6,7 @@ public enum MoveState
 {
     Walk,Sprint,Jump,Crouch,GroundPound,
 }
-public class ThirdPersonMovementScript : MonoBehaviour
+public class ThirdPersonMovementScript : GameBehaviour
 {
     [Header("CharacterController")]
     [SerializeField] CharacterController controller;
@@ -67,7 +67,10 @@ public class ThirdPersonMovementScript : MonoBehaviour
     }
     public void Jump(InputAction.CallbackContext _context)
     {
-        if (_context.ReadValue<float>() == 1 && _isGrounded)
+         if(_GM.gameState != GameState.Playing)
+            return;
+
+        if (_context.ReadValue<float>() == 1 && _isGrounded )
         {
             JumpAction(jumpHight);
         }
@@ -124,6 +127,9 @@ public class ThirdPersonMovementScript : MonoBehaviour
 
     private void MovePlayer()
     {
+        if (_GM.gameState != GameState.Playing)
+            return;
+
         if (_direction.magnitude > 0.1f)
         {
             float targetAngle = Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;

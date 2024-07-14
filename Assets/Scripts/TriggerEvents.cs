@@ -4,42 +4,26 @@ using UnityEngine.Events;
 public class TriggerEvents : MonoBehaviour
 {
 
-    public UnityEvent triggerEnterEvent;
-    public UnityEvent triggerStayEvent;
-    public UnityEvent triggerExitEvent;
+    public string[] triggerTags;
 
-    public string triggerTag;
+    public UnityEvent OnTriggerEnterEvent;
+    public UnityEvent OnTriggerExitEvent;
+    public UnityEvent OnTriggerStayEvent;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) => Trigger(other, OnTriggerEnterEvent);
+    private void OnTriggerExit(Collider other) => Trigger(other, OnTriggerExitEvent);
+    private void OnTriggerStay(Collider other) => Trigger(other, OnTriggerStayEvent);
+
+    private void Trigger(Collider _other, UnityEvent _Event)
     {
-        if (triggerTag == "")
-            Debug.LogWarning($"No Tag attached");
-
-        if(other.CompareTag(triggerTag))
+        for (int i = 0; i < triggerTags.Length; i++)
         {
-            triggerEnterEvent?.Invoke();
-        }
-    }
+            if (ObjectX.DoesTagExist(triggerTags[i]))
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (triggerTag == "")
-            Debug.LogWarning($"No Tag attached");
-
-        if (other.CompareTag(triggerTag))
-        {
-            triggerStayEvent?.Invoke();
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (triggerTag == "")
-            Debug.LogWarning($"No Tag attached");
-
-        if (other.CompareTag(triggerTag))
-        {
-            triggerExitEvent?.Invoke();
+                if (_other.CompareTag(triggerTags[i]))
+                {
+                    _Event.Invoke();
+                }
         }
     }
 }

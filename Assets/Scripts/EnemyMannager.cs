@@ -121,12 +121,12 @@ public class EnemyMannager : Singleton<EnemyMannager>
     /// kills an inputed Enemy
     /// </summary>
     /// <param name="_enemy"></param>
-    public void KillEnemy(GameObject _enemy)
+    public void KillEnemy(GameObject _enemy , float _delay = 0)
     {
         if (GetEnemyCount() == 0)
             return;
 
-        Destroy(_enemy);
+        Destroy(_enemy, _delay);
         spawnnedEnemies.Remove(_enemy);
 
 
@@ -198,7 +198,7 @@ public class EnemyMannager : Singleton<EnemyMannager>
 
     private void GameEvents_OnEnermyDie(GameObject obj)
     {
-        KillEnemy(obj);
+        KillEnemy(obj , 5);
     }
 
     private void OnEnable()

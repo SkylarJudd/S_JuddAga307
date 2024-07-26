@@ -4,13 +4,17 @@ public class Doors : MonoBehaviour
 {
     public GameObject leftDoor;
     public GameObject rightDoor;
+    public Animator animator;
+    public string doorOpenName = "DoorOpen";
+    public string doorCloseName = "DoorClose";
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            leftDoor.SetActive(false);
-            rightDoor.SetActive(false);
+            print("Player In Door Trigger");
+           
+            animator.SetTrigger(doorOpenName);
         }
     }
 
@@ -18,8 +22,9 @@ public class Doors : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            leftDoor.SetActive(true);
-            rightDoor.SetActive(true);
+            print("Player In Door Trigger");
+            
+            animator.SetTrigger(doorCloseName);
         }
     }
 

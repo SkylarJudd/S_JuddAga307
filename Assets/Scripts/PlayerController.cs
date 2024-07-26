@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class PlayerController : GameBehaviour
+public class PlayerController : Singleton<PlayerController>
 {
+    public int playerHealth = 100;
+
     private CharacterController characterController;
     public float speed = 10f;
     public float jumpHeight = 3f;
@@ -13,6 +15,8 @@ public class PlayerController : GameBehaviour
 
     private Vector3 velocity;
     private bool isGrounded;
+
+
 
     void Start()
     {
@@ -51,6 +55,12 @@ public class PlayerController : GameBehaviour
 
     private void GetCloestObject()
     {
-        print ($"Closest Enemy is { getClosestEnermy(transform, _EM.spawnnedEnemies)}");
+        print($"Closest Enemy is {getClosestEnermy(transform, _EM.spawnnedEnemies)}");
+    }
+
+    public void Hit(int _damage)
+    {
+        playerHealth -= _damage;
+        print(playerHealth);
     }
 }

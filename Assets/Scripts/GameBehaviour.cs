@@ -8,9 +8,13 @@ public class GameBehaviour : MonoBehaviour
     protected static EnemyMannager _EM { get { return EnemyMannager.instance; } }
     protected static MainMenu _MM { get { return MainMenu.instance; } }
 
+    protected static PlayerController _PLAYER { get { return PlayerController.instance; } }
+
     protected static ChickenEnermyMannager _CEM { get { return ChickenEnermyMannager.instance; } }
     protected static ChickenEnermyNavMannager _CNM { get { return ChickenEnermyNavMannager.instance; } }
     protected static UIMannager _UIM { get { return UIMannager.instance; } }
+
+
 
     public Transform getClosestEnermy(Transform _origin, List<GameObject> _objects)
     {

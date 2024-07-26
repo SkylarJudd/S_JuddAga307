@@ -1013,6 +1013,8 @@ GameObject:
   - component: {fileID: 477558}
   - component: {fileID: 3320126}
   - component: {fileID: 2353324}
+  - component: {fileID: 3016989366841069063}
+  - component: {fileID: 2804432535419661190}
   m_Layer: 0
   m_Name: TwoHanded_Axe
   m_TagString: Untagged
@@ -1088,6 +1090,40 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3016989366841069063
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144286}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.28525916, y: 0.03511304, z: 0.5116106}
+  m_Center: {x: -0.010543418, y: -0.00000006102755, z: 0.51214194}
+--- !u!114 &2804432535419661190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aac744345874c64686846d814a8d4b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!1 &146156
 GameObject:
   m_ObjectHideFlags: 0
@@ -1565,7 +1601,7 @@ Animator:
   m_GameObject: {fileID: 159544}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 20300ac630e0fcd4dbab63a9b39cdafa, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4f906d7daaad33f4bb90a3370a809c2a, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1612,6 +1648,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a52cecf6ba0027f4097a9a0c507f0839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MyType: 0
+  moveDistance: 1000
+  myPatrol: 0
+  moveToPos: {fileID: 0}
+  stopDisctance: 0.3
+  myspeed: 5
+  myHelth: 100
+  attackRange: 3
+  player: {fileID: 0}
 --- !u!1 &162436
 GameObject:
   m_ObjectHideFlags: 0

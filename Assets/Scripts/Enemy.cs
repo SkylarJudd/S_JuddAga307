@@ -21,10 +21,20 @@ public class Enemy : GameBehaviour
     [SerializeField] float myspeed = 5.0f;
     [SerializeField] int myHelth = 100;
 
+    [SerializeField] float attackRange = 3f;
+    [SerializeField] GameObject player;
+
+    private Animator animator;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+
+    }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.H)) 
+        if (Input.GetKeyDown(KeyCode.H))
         {
             EnemyHit(-10);
         }
@@ -32,7 +42,7 @@ public class Enemy : GameBehaviour
 
     public void setup(Transform _startPo)
     {
-        
+
 
         switch (MyType)
         {
@@ -94,9 +104,28 @@ public class Enemy : GameBehaviour
         while (Vector3.Distance(transform.position, moveToPos.position) > stopDisctance)
         {
             transform.position = Vector3.MoveTowards(transform.position, moveToPos.position, Time.deltaTime * myspeed);
+
+            if (Vector3.Distance(transform.position, _PLAYER.transform.position) < attackRange)
+            {
+                StopAllCoroutines();
+                StartCoroutine(Attack());
+                break;
+            }
+            {
+
+            }
             yield return null;
         }
 
+        yield return new WaitForSeconds(1);
+        StartCoroutine(MoveEnemy());
+    }
+
+    private IEnumerator Attack()
+    {
+        
+        playAnimation("Attack");
+        animator.SetInteger("Rnd", Random.Range(1, 3));
         yield return new WaitForSeconds(1);
         StartCoroutine(MoveEnemy());
     }
@@ -112,9 +141,10 @@ public class Enemy : GameBehaviour
         }
         else
         {
+            playAnimation("Hit");
             GameEvents.ReportOnEnemyHit(gameObject);
         }
-        
+
     }
 
     private void EnemyDie()
@@ -122,8 +152,16 @@ public class Enemy : GameBehaviour
         if (myHelth <= 0)
         {
             StopAllCoroutines();
+            GetComponent<Collider>().enabled = false;
+            playAnimation("Die");
             print("Enermy Dies");
             GameEvents.ReportOnEnemyDie(gameObject);
         }
+    }
+
+    private void playAnimation(string _name)
+    {
+        animator.SetInteger("Rnd", Random.Range(1, 3));
+        animator.SetTrigger(_name);
     }
 }
